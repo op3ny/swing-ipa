@@ -13,9 +13,9 @@ struct NowPlayingView: View {
     @Environment(\.accessibilityReduceMotion) private var accessibilityReduceMotion
     @Environment(\.accessibilityVoiceOverEnabled)
     private var accessibilityVoiceOverEnabled
-    @Environment(PlayerStore.self) private var player
-    @Environment(AppSettings.self) private var settings
-    @Environment(LyricsStore.self) private var lyricsStore
+    @EnvironmentObject private var player: PlayerStore
+    @EnvironmentObject private var settings: AppSettings
+    @EnvironmentObject private var lyricsStore: LyricsStore
 
     @State private var page: NowPlayingPage
     @State private var showsLyricsControls = true

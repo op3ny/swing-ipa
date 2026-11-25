@@ -4,8 +4,8 @@ struct NowPlayingArtworkPage: View {
     static let pausedArtworkScale: CGFloat = 0.74
 
     @Environment(\.accessibilityReduceMotion) private var accessibilityReduceMotion
-    @Environment(PlayerStore.self) private var player
-    @Environment(AppSettings.self) private var settings
+    @EnvironmentObject private var player: PlayerStore
+    @EnvironmentObject private var settings: AppSettings
 
     let song: Song
     let artworkNamespace: Namespace.ID

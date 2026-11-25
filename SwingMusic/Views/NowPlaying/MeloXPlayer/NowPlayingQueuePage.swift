@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct NowPlayingQueuePage: View {
-    @Environment(PlayerStore.self) private var player
+    @EnvironmentObject private var player: PlayerStore
 
     let song: Song
     let presentation: NowPlayingLyricsPresentation
@@ -285,7 +285,7 @@ struct NowPlayingQueuePage: View {
 }
 
 private struct NowPlayingQueueModeControls: View {
-    @Environment(PlayerStore.self) private var player
+    @EnvironmentObject private var player: PlayerStore
 
     var body: some View {
         HStack(spacing: 14) {
@@ -391,7 +391,7 @@ private struct NowPlayingQueueModeControls: View {
 }
 
 private struct NowPlayingQueueRow: View {
-    @Environment(PlayerStore.self) private var player
+    @EnvironmentObject private var player: PlayerStore
 
     let entry: UpcomingQueueEntry
 

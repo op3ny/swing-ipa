@@ -114,8 +114,8 @@ final class LyricsStore: ObservableObject {
 
 struct ArtworkImage: View {
     let url: URL?
-    var cornerRadius: CGFloat = 0
-    var isPopupTransitionTarget: Bool = false
+    @Published var cornerRadius: CGFloat = 0
+    @Published var isPopupTransitionTarget: Bool = false
 
     var body: some View {
         Group {

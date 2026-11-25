@@ -1,14 +1,13 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @Environment(AppState.self) var state
+    @EnvironmentObject var state: AppState
     @AppStorage("albumArtTapAction") private var albumArtTapAction = "album"
     @AppStorage("musixmatchWordByWord") private var musixmatchWordByWord = true
     @AppStorage(Net.allowInsecureTLSKey) private var allowInsecureTLS = false
     @AppStorage(ShakeToReport.key) private var shakeToReport = false
 
     var body: some View {
-        @ObservedObject var state = state
         List {
             Section {
                 HStack(spacing: 16) {

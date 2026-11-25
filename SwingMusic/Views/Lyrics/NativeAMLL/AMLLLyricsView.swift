@@ -1324,7 +1324,7 @@ struct NativeAMLLLyricsView: View {
     var isActive = true
     var onReady: (() -> Void)? = nil
 
-    @Environment(AppState.self) private var appState
+    @EnvironmentObject private var appState: AppState
     @StateObject private var engine = AMLLEngine()
     @State private var appLyrics: ParsedLyrics?
     @State private var trackID: String?
@@ -1427,7 +1427,7 @@ struct NativeAMLLLyricsView: View {
 }
 
 private struct AppLyricsListener: View {
-    @Environment(AppState.self) private var state
+    @EnvironmentObject private var state: AppState
     let onChange: (ParsedLyrics?) -> Void
 
     var body: some View {

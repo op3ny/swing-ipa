@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct FolderBrowserView: View {
-    @Environment(AppState.self) var state
+    @EnvironmentObject var state: AppState
     var path: String = "$home"
     var title: String = "Folders"
 

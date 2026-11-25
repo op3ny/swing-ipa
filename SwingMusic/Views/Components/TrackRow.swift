@@ -175,7 +175,7 @@ struct TrackRow: View {
         )
     }
 
-    @Environment(AppState.self) var state
+    @EnvironmentObject var state: AppState
 
     private func viewArtist(_ a: TrackArtist) {
         state.navigationTarget = .artist(Artist(stub: a.artisthash, name: a.name))

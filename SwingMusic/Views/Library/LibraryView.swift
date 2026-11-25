@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct LibraryView: View {
-    @Environment(AppState.self) var state
+    @EnvironmentObject var state: AppState
     @State private var showingCreateAlert = false
     @State private var newPlaylistName = ""
     @State private var showSettings = false
@@ -10,7 +10,6 @@ struct LibraryView: View {
     private let menu: [LibItem] = [.folders, .artists, .albums, .playlists, .downloads]
 
     var body: some View {
-        @ObservedObject var state = state
         NavigationStack(path: $state.libraryPath) {
             List {
                 Section {
@@ -179,7 +178,7 @@ struct LibraryView: View {
 }
 
 struct PlaylistsListView: View {
-    @Environment(AppState.self) var state
+    @EnvironmentObject var state: AppState
     @State private var showingCreateAlert = false
     @State private var newPlaylistName = ""
 

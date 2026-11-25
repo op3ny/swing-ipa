@@ -2,7 +2,7 @@ import SwiftUI
 import LNPopupUI
 
 struct ContentView: View {
-    @Environment(AppState.self) var state
+    @EnvironmentObject var state: AppState
     private let player = AudioPlayer.shared
     @State private var barPresented = false
     #if DEBUG
@@ -14,15 +14,14 @@ struct ContentView: View {
     // resets the root view of both on each update, which rebuilds any menu that is open. Playback state
     // that changes while music plays belongs in MiniPlayerItem instead.
     var body: some View {
-        @ObservedObject var state = state
         tabView
             .popup(isBarPresented: $barPresented, isPopupOpen: $state.showPlayer) {
                 MiniPlayerItem {
                     NowPlayingView()
-                        .environment(state)
-                        .environment(PlayerStore.shared)
-                        .environment(AppSettings.shared)
-                        .environment(LyricsStore.shared)
+                        .environmentObject(state)
+                        .environmentObject(PlayerStore.shared)
+                        .environmentObject(AppSettings.shared)
+                        .environmentObject(LyricsStore.shared)
                         .environment(\.colorScheme, .dark)
                 }
             }
@@ -38,7 +37,7 @@ struct ContentView: View {
             }
             .sheet(item: $state.requestedTrackForPlaylist) { track in
                 AddToPlaylistSheet(track: track)
-                    .environment(state)
+                    .environmentObject(state)
             }
             .onChange(of: state.tab) { _, _ in state.scroll.reset() }
             #if DEBUG
@@ -57,7 +56,6 @@ struct ContentView: View {
     }
 
     private var tabView: some View {
-        @ObservedObject var state = state
         return TabView(selection: $state.tab) {
             Tab("Listening Now", systemImage: "house.fill", value: AppState.Tab.home) {
                 HomeView()

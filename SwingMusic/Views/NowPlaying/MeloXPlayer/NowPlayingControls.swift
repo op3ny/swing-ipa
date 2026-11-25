@@ -2,7 +2,7 @@ import MediaPlayer
 import SwiftUI
 
 struct NowPlayingProgressControl: View {
-    @Environment(PlayerStore.self) private var player
+    @EnvironmentObject private var player: PlayerStore
 
     let song: Song
 
@@ -65,7 +65,7 @@ struct NowPlayingProgressControl: View {
 private struct NowPlayingAutoMixStatus: View {
     @Environment(\.accessibilityReduceMotion)
     private var accessibilityReduceMotion
-    @Environment(PlayerStore.self) private var player
+    @EnvironmentObject private var player: PlayerStore
 
     var body: some View {
         HStack(spacing: 5) {
@@ -126,8 +126,8 @@ private struct NowPlayingAutoMixStatus: View {
 }
 
 private struct NowPlayingQualityMenu: View {
-    @Environment(PlayerStore.self) private var player
-    @Environment(AppSettings.self) private var settings
+    @EnvironmentObject private var player: PlayerStore
+    @EnvironmentObject private var settings: AppSettings
 
     var body: some View {
         Menu {
@@ -180,7 +180,7 @@ private struct NowPlayingQualityMenu: View {
 
 struct NowPlayingTransportControls: View {
     @Environment(\.accessibilityReduceMotion) private var accessibilityReduceMotion
-    @Environment(PlayerStore.self) private var player
+    @EnvironmentObject private var player: PlayerStore
 
     var body: some View {
         HStack {
@@ -264,8 +264,8 @@ struct NowPlayingTransportControls: View {
 }
 
 struct NowPlayingVolumeControl: View {
-    @Environment(PlayerStore.self) private var player
-    @Environment(AppSettings.self) private var settings
+    @EnvironmentObject private var player: PlayerStore
+    @EnvironmentObject private var settings: AppSettings
     @State private var volume = Double(AudioPlayer.shared.volume)
 
     @ViewBuilder
@@ -346,7 +346,7 @@ private struct SystemVolumeSlider: UIViewRepresentable {
 struct NowPlayingPageSelector: View {
     @Environment(\.accessibilityReduceMotion)
     private var accessibilityReduceMotion
-    @Environment(PlayerStore.self) private var player
+    @EnvironmentObject private var player: PlayerStore
 
     @Binding var page: NowPlayingPage
 

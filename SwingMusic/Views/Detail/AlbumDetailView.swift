@@ -4,7 +4,7 @@ struct AlbumDetailView: View {
     // The album as it was when opened (from a card, a search result or a track), so the header shows
     // straight away, moving in with the screen; the server's copy replaces it once loaded.
     let album: Album
-    @Environment(AppState.self) var state
+    @EnvironmentObject var state: AppState
     @State private var detail: AlbumDetail?
     @State private var loading = true
     @State private var bgImage: UIImage?

@@ -25,7 +25,7 @@ struct SwingMusicApp: App {
                     LoginView()
                 }
             }
-            .environment(state)
+            .environmentObject(state)
             .preferredColorScheme(state.appearanceMode.colorScheme)
             .onChange(of: scenePhase) { _, phase in
                 if phase == .active {

@@ -18,7 +18,7 @@ enum AlbumSort: String, CaseIterable, Identifiable {
 }
 
 struct AlbumsGridView: View {
-    @Environment(AppState.self) var state
+    @EnvironmentObject var state: AppState
     @AppStorage("albumsSort") private var sortRaw = AlbumSort.recentlyAdded.rawValue
     private let cols = [GridItem(.adaptive(minimum: 150), spacing: 14)]
 
@@ -72,7 +72,7 @@ enum ArtistSort: String, CaseIterable, Identifiable {
 }
 
 struct ArtistsGridView: View {
-    @Environment(AppState.self) var state
+    @EnvironmentObject var state: AppState
     @AppStorage("artistsSort") private var sortRaw = ArtistSort.name.rawValue
     private let cols = [GridItem(.adaptive(minimum: 120), spacing: 14)]
 
@@ -111,7 +111,7 @@ struct ArtistsGridView: View {
 }
 
 struct FavoriteTracksView: View {
-    @Environment(AppState.self) var state
+    @EnvironmentObject var state: AppState
 
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
@@ -145,7 +145,7 @@ struct FavoriteTracksView: View {
 }
 
 struct FavoriteAlbumsGridView: View {
-    @Environment(AppState.self) var state
+    @EnvironmentObject var state: AppState
     @State private var width: CGFloat = 0
     private let cols = [GridItem(.adaptive(minimum: FavoritesListHeader.albumCard), spacing: FavoritesListHeader.gridSpacing)]
 
@@ -180,7 +180,7 @@ struct FavoriteAlbumsGridView: View {
 }
 
 struct FavoriteArtistsGridView: View {
-    @Environment(AppState.self) var state
+    @EnvironmentObject var state: AppState
     @State private var width: CGFloat = 0
     private let cols = [GridItem(.adaptive(minimum: 120), spacing: 14)]
 
@@ -215,7 +215,7 @@ struct FavoriteArtistsGridView: View {
 }
 
 struct RecentlyAddedView: View {
-    @Environment(AppState.self) var state
+    @EnvironmentObject var state: AppState
     private let cols = [GridItem(.adaptive(minimum: 150), spacing: 14)]
 
     var body: some View {

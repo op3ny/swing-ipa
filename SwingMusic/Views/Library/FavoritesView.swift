@@ -3,7 +3,7 @@ import SwiftUI
 enum FavRoute: Hashable { case albums, artists, songs }
 
 struct FavoritesView: View {
-    @Environment(AppState.self) var state
+    @EnvironmentObject var state: AppState
     @State private var loading = true
     @State private var startingPlayback = false
 
@@ -217,11 +217,10 @@ struct FavoritesCollage: View {
 
 // The Favorites tab: its own navigation stack, with the same detail screens and zoom transitions as Library.
 struct FavoritesTabView: View {
-    @Environment(AppState.self) var state
+    @EnvironmentObject var state: AppState
     @Namespace private var zoomNS
 
     var body: some View {
-        @ObservedObject var state = state
         NavigationStack(path: $state.favoritesPath) {
             FavoritesView()
                 .appDestinations(zoom: zoomNS)

@@ -2,7 +2,7 @@ import SwiftUI
 
 struct DownloadsView: View {
     @ObservedObject var dm = DownloadManager.shared
-    @Environment(AppState.self) var state
+    @EnvironmentObject var state: AppState
 
     var body: some View {
         Group {
@@ -159,7 +159,7 @@ struct DownloadsView: View {
 struct DownloadedGroupView: View {
     let group: DownloadManager.DownloadGroup
     @ObservedObject var dm = DownloadManager.shared
-    @Environment(AppState.self) var state
+    @EnvironmentObject var state: AppState
     @Environment(\.dismiss) private var dismiss
 
     private var tracks: [Track] { dm.tracks(in: group) }

@@ -203,7 +203,7 @@ final class AppState: ObservableObject {
         guard !albums.isEmpty else { shufflingLibrary = false; return }
 
         let batchN = min(8, albums.count)
-        @Published var initial: [Track] = []
+        var initial: [Track] = []
         await withTaskGroup(of: [Track].self) { group in
             for a in albums.prefix(batchN) {
                 group.addTask { (try? await API.shared.album(a.albumhash))?.tracks ?? [] }
@@ -232,7 +232,7 @@ final class AppState: ObservableObject {
         guard let data = try? await API.shared.homeData(),
               let arr = try? JSONSerialization.jsonObject(with: data) as? [[String: Any]] else { return }
 
-        @Published var result: [HomeSection] = []
+        var result: [HomeSection] = []
         for entry in arr {
             guard let key = entry.keys.first,
                   let sec = entry[key] as? [String: Any] else { continue }
@@ -240,7 +240,7 @@ final class AppState: ObservableObject {
             let description = (sec["description"] as? String).flatMap { $0.isEmpty ? nil : $0 }
             let rawItems = (sec["items"] as? [[String: Any]]) ?? []
 
-            @Published var items: [HomeItem] = []
+            var items: [HomeItem] = []
             for raw in rawItems {
                 guard let type = raw["type"] as? String,
                       let itemObj = raw["item"],
@@ -473,7 +473,7 @@ final class AppState: ObservableObject {
         let musixmatchTask = wordByWordTask(for: track)
         defer { if Task.isCancelled { musixmatchTask?.cancel() } }
 
-        @Published var parsed: ParsedLyrics?
+        var parsed: ParsedLyrics?
 
         let localLyrics = DownloadManager.shared.localLyricsURL(for: track)
         if FileManager.default.fileExists(atPath: localLyrics.path) {
@@ -621,14 +621,14 @@ final class AppState: ObservableObject {
             )
         }
 
-        @Published var referenceTimes: [String: TimeInterval] = [:]
+        var referenceTimes: [String: TimeInterval] = [:]
         for line in reference.lines {
             let k = key(line.text)
             guard k.count >= 6 else { continue }
             if referenceTimes[k] == nil { referenceTimes[k] = line.time }
         }
 
-        @Published var deltas: [TimeInterval] = []
+        var deltas: [TimeInterval] = []
         for line in candidate.lines {
             let k = key(line.text)
             guard k.count >= 6, let referenceTime = referenceTimes[k] else { continue }
@@ -714,7 +714,7 @@ final class AppState: ObservableObject {
         let wbwURL = "\(API.shared.base)/\(track.trackhash).wbw.lrc"
         guard let url = URL(string: wbwURL) else { return nil }
 
-        @Published var req = URLRequest(url: url)
+        var req = URLRequest(url: url)
         req.timeoutInterval = 5.0
         req.cachePolicy = .reloadIgnoringLocalCacheData
         if let token = API.shared.token { req.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization") }
@@ -739,7 +739,7 @@ final class AppState: ObservableObject {
 
     private func syncLyric(_ t: Double) {
         guard let l = lyrics, !l.lines.isEmpty else { return }
-        @Published var idx = 0
+        var idx = 0
         for (i, line) in l.lines.enumerated() {
             if line.time <= t { idx = i } else { break }
         }
@@ -748,7 +748,7 @@ final class AppState: ObservableObject {
 
     private func loadBGImage(for track: Track) async {
         guard let url = API.shared.img(track.image) else { return }
-        @Published var req = URLRequest(url: url)
+        var req = URLRequest(url: url)
         if let tk = API.shared.token { req.setValue("Bearer \(tk)", forHTTPHeaderField: "Authorization") }
         guard let (data, _) = try? await Net.session.data(for: req),
               let img = UIImage(data: data) else { return }

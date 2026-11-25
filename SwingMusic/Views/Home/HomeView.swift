@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @Environment(AppState.self) var state
+    @EnvironmentObject var state: AppState
     @State private var showSettings = false
     @State private var heroes: [HeroPick] = []
     @Namespace private var zoomNS
@@ -21,7 +21,6 @@ struct HomeView: View {
     private var isLoading: Bool { !didLoad && state.homeSections.isEmpty }
 
     var body: some View {
-        @ObservedObject var state = state
         NavigationStack(path: $state.homePath) {
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVStack(alignment: .leading, spacing: 28) {

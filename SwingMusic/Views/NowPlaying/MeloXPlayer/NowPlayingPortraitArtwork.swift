@@ -8,7 +8,7 @@ enum NowPlayingPortraitCoordinateSpace {
 struct NowPlayingPortraitArtwork: View {
     @Environment(\.accessibilityReduceMotion)
     private var accessibilityReduceMotion
-    @Environment(PlayerStore.self) private var player
+    @EnvironmentObject private var player: PlayerStore
 
     let song: Song
     let isArtworkPage: Bool

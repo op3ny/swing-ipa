@@ -2,7 +2,7 @@ import SwiftUI
 import CoreImage
 
 struct AmbientBackground: View {
-    @Environment(AppState.self) var state
+    @EnvironmentObject var state: AppState
     @Environment(\.colorScheme) var colorScheme
     @State private var rendered: UIImage?
 

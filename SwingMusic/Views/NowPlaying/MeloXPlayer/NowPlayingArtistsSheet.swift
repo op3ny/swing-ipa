@@ -3,7 +3,7 @@ import SwiftUI
 // Opened by tapping the artist line in the player: every artist on the track, then its album,
 // each opening its page. Mirrors the web client, where each artist name is its own link.
 struct NowPlayingArtistsSheet: View {
-    @Environment(AppState.self) private var state
+    @EnvironmentObject private var state: AppState
     @Environment(\.dismiss) private var dismiss
 
     let song: Song
@@ -42,7 +42,7 @@ struct NowPlayingArtistsSheet: View {
 }
 
 private struct ArtistRow: View {
-    @Environment(AppState.self) private var state
+    @EnvironmentObject private var state: AppState
     let artist: Artist
     let open: (Artist) -> Void
     @State private var isFavorite: Bool?
@@ -60,7 +60,7 @@ private struct ArtistRow: View {
 }
 
 private struct AlbumRow: View {
-    @Environment(AppState.self) private var state
+    @EnvironmentObject private var state: AppState
     let album: Album
     let open: (Album) -> Void
     @State private var isFavorite: Bool?

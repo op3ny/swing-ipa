@@ -2,7 +2,7 @@ import SwiftUI
 
 struct MixDetailView: View {
     let mix: Mix
-    @Environment(AppState.self) var state
+    @EnvironmentObject var state: AppState
     @State private var tracks: [Track] = []
     @State private var loading = true
     @State private var bgImage: UIImage?

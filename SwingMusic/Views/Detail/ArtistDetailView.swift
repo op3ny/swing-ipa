@@ -4,7 +4,7 @@ struct ArtistDetailView: View {
     // The artist as it was when opened, so the portrait and name show straight away, moving in with
     // the screen; the server's copy replaces it once loaded.
     let artist: Artist
-    @Environment(AppState.self) var state
+    @EnvironmentObject var state: AppState
     @State private var detail: ArtistDetail?
     @State private var loading = true
     @State private var similar: [Artist] = []
@@ -333,7 +333,7 @@ struct ArtistTracksView: View {
     let hash: String
     let artistName: String
     let loadTracks: () async -> [Track]?
-    @Environment(AppState.self) var state
+    @EnvironmentObject var state: AppState
     @State private var tracks: [Track] = []
     @State private var loading = true
 
@@ -374,7 +374,7 @@ struct ArtistTracksView: View {
 struct ArtistAlbumsGridView: View {
     let title: String
     let albums: [Album]
-    @Environment(AppState.self) var state
+    @EnvironmentObject var state: AppState
     private let cols = [GridItem(.adaptive(minimum: 150), spacing: 14)]
 
     var body: some View {

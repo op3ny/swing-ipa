@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct NowPlayingLyricsLanguageButton: View {
-    @Environment(AppSettings.self) private var settings
+    @EnvironmentObject private var settings: AppSettings
 
     let hasTranslations: Bool
     let hasRomanizations: Bool

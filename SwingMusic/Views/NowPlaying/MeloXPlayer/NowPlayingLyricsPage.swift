@@ -7,7 +7,7 @@ enum NowPlayingLyricsPresentation: Equatable {
 
 struct NowPlayingLyricsPage: View {
     @Environment(\.accessibilityReduceMotion) private var accessibilityReduceMotion
-    @Environment(AppSettings.self) private var settings
+    @EnvironmentObject private var settings: AppSettings
 
     let song: Song
     let lyrics: [MXLyricLine]

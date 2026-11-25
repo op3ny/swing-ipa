@@ -2,8 +2,8 @@ import SwiftUI
 
 struct NowPlayingLandscapeView: View {
     @Environment(\.accessibilityReduceMotion) private var accessibilityReduceMotion
-    @Environment(PlayerStore.self) private var player
-    @Environment(AppSettings.self) private var settings
+    @EnvironmentObject private var player: PlayerStore
+    @EnvironmentObject private var settings: AppSettings
 
     @Binding var page: NowPlayingPage
     let showsLyricsControls: Bool

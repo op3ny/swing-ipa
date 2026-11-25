@@ -38,7 +38,7 @@ private let localGenres: [GenreInfo] = [
 ]
 
 struct SearchView: View {
-    @Environment(AppState.self) var state
+    @EnvironmentObject var state: AppState
     @State private var query = ""
     @State private var scope: SearchScope = .all
     @State private var result: SearchResult?
@@ -52,7 +52,6 @@ struct SearchView: View {
     }
 
     var body: some View {
-        @ObservedObject var state = state
         NavigationStack(path: $state.searchPath) {
             content
                 .navigationTitle("Search")
