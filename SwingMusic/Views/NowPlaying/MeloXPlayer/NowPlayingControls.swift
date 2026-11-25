@@ -208,11 +208,6 @@ struct NowPlayingTransportControls: View {
                     } else {
                         Image(systemName: player.isPlaying ? "pause.fill" : "play.fill")
                             .font(.system(size: 48, weight: .medium))
-                            .contentTransition(
-                                accessibilityReduceMotion
-                                    ? .identity
-                                    : 
-                            )
                             .animation(
                                 accessibilityReduceMotion
                                     ? nil
