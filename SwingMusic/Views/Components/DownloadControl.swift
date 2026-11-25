@@ -111,8 +111,8 @@ struct FavoriteButton: View {
         } label: {
             Image(systemName: isFavorite ? "heart.fill" : "heart")
                 .foregroundStyle(.primary)
-                .contentTransition(.symbolEffect(.replace))
-                .symbolEffect(.bounce, value: isFavorite)
+                .contentTransition()
+                
         }
         .accessibilityLabel(isFavorite ? "Remove from Favorites" : "Add to Favorites")
     }

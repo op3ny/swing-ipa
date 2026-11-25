@@ -121,3 +121,89 @@ struct MXLyricLine: Identifiable, Hashable {
         return components.joined(separator: "，")
     }
 }
+
+
+// MARK: - iOS 16 compatibility stubs
+// The original MeloX lyrics renderer relies on Text.Layout / customAttribute
+// (iOS 17+). Those three source files are excluded from the iOS 16 target;
+// these minimal stand-ins keep the remaining lyrics code compiling.
+
+struct LyricTimingTextAttribute: Hashable, Sendable {
+    let startTime: TimeInterval
+    let endTime: TimeInterval
+    let syllableStartTime: TimeInterval
+    let syllableEndTime: TimeInterval
+    let characterIndex: Int
+    let characterCount: Int
+    let wordStartTime: TimeInterval
+    let wordEndTime: TimeInterval
+    let wordCharacterIndex: Int
+    let wordCharacterCount: Int
+    let usesWordTimingForLongTone: Bool
+    let isWhitespace: Bool
+    var isLastWordInLine: Bool = false
+}
+
+enum LyricRubyTextBuilder {
+    static func originalText(from units: [LyricRubyPlacementUnit]) -> Text {
+        Text(verbatim: units.map(\.lyric.originalText).joined())
+    }
+
+    static func romanizationText(from units: [LyricRubyPlacementUnit]) -> Text {
+        Text(verbatim: units.compactMap(\.lyric.romanizationText).joined())
+    }
+}
+
+struct CompatUnavailableView: View {
+    let title: String
+    let systemImage: String
+    let description: Text?
+
+    init(_ title: String, systemImage: String, description: Text? = nil) {
+        self.title = title
+        self.systemImage = systemImage
+        self.description = description
+    }
+
+    var body: some View {
+        VStack(spacing: 10) {
+            Image(systemName: systemImage)
+                .font(.system(size: 38, weight: .light))
+            Text(title)
+                .font(.title3.weight(.semibold))
+            if let description {
+                description
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
+    static func search(text: String) -> CompatUnavailableView {
+        CompatUnavailableView(
+            "No results for \(text)",
+            systemImage: "magnifyingglass"
+        )
+    }
+}
+
+extension View {
+    @ViewBuilder
+    func compatOnChange<Value: Equatable>(
+        of value: Value,
+        initial: Bool = false,
+        _ action: @escaping (Value, Value) -> Void
+    ) -> some View {
+        onChange(of: value) { action($0, $0) }
+    }
+
+    @ViewBuilder
+    func compatOnChange<Value: Equatable>(
+        of value: Value,
+        initial: Bool = false,
+        _ action: @escaping () -> Void
+    ) -> some View {
+        onChange(of: value) { _ in action() }
+    }
+}

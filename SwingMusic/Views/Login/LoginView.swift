@@ -213,7 +213,7 @@ struct LoginView: View {
 private struct BlueLiquidGlassBackground: ViewModifier {
     func body(content: Content) -> some View {
         if #available(iOS 26.0, *) {
-            content.glassEffect(.regular.tint(.blue), in: Capsule(style: .continuous))
+            content
         } else {
             content
                 .background(Color.blue, in: Capsule(style: .continuous))

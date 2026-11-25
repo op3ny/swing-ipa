@@ -15,7 +15,7 @@ struct FavoritesView: View {
                 ProgressView().tint(.secondary)
                     .frame(maxWidth: .infinity, minHeight: 400)
             } else if isEmpty {
-                ContentUnavailableView(
+                CompatUnavailableView(
                     "No Favorites Yet",
                     systemImage: "heart",
                     description: Text("Tap the heart on a song, album or artist to find it here.")
@@ -129,11 +129,11 @@ struct FavoritesView: View {
                         NavigationLink(value: a) { AlbumCard(album: a, size: 150) }.buttonStyle(.plain)
                     }
                 }
-                .scrollTargetLayout()
+                
             }
-            .scrollTargetBehavior(.viewAligned)
-            .contentMargins(.horizontal, 16, for: .scrollContent)
-            .scrollClipDisabled()
+            
+            
+            
         }
     }
 
@@ -146,11 +146,11 @@ struct FavoritesView: View {
                         NavigationLink(value: a) { ArtistCard(artist: a, size: 110) }.buttonStyle(.plain)
                     }
                 }
-                .scrollTargetLayout()
+                
             }
-            .scrollTargetBehavior(.viewAligned)
-            .contentMargins(.horizontal, 16, for: .scrollContent)
-            .scrollClipDisabled()
+            
+            
+            
         }
     }
 

@@ -29,59 +29,56 @@ struct ContentView: View {
             .popupBarCustomizer { $0.tintColor = .label }
             .popupInteractionStyle(.drag)
             .onReceive(player.$current.map { $0 != nil }.removeDuplicates()) { barPresented = $0 }
-            .onChange(of: state.lyricsRevision) { _, _ in
+            .compatOnChange(of: state.lyricsRevision) { _, _ in
                 LyricsStore.shared.update(from: state.lyrics)
             }
-            .onChange(of: state.showPlayer) { _, open in
+            .compatOnChange(of: state.showPlayer) { _, open in
                 if open { LyricsStore.shared.update(from: state.lyrics) }
             }
             .sheet(item: $state.requestedTrackForPlaylist) { track in
                 AddToPlaylistSheet(track: track)
                     .environmentObject(state)
             }
-            .onChange(of: state.tab) { _, _ in state.scroll.reset() }
+            .compatOnChange(of: state.tab) { _, _ in state.scroll.reset() }
             #if DEBUG
             .sheet(isPresented: $debugShowsEqualizer) { EqualizerSheet() }
             .sheet(isPresented: $debugShowsWidgets) { WidgetDebugPreview() }
             .onReceive(NotificationCenter.default.publisher(for: .init("debugShowWidgets"))) { _ in debugShowsWidgets = true }
             .onReceive(NotificationCenter.default.publisher(for: .init("debugShowEqualizer"))) { _ in debugShowsEqualizer = true }
             #endif
-            .onChange(of: state.navigationTarget) { _, target in
+            .compatOnChange(of: state.navigationTarget) { _, target in
                 guard target != nil else { return }
                 if state.showPlayer { state.showPlayer = false } else { navigateToTarget(target!) }
             }
-            .onChange(of: state.showPlayer) { _, open in
+            .compatOnChange(of: state.showPlayer) { _, open in
                 if !open, let target = state.navigationTarget { navigateToTarget(target) }
             }
     }
 
     private var tabView: some View {
-        return TabView(selection: $state.tab) {
-            Tab("Listening Now", systemImage: "house.fill", value: AppState.Tab.home) {
-                HomeView()
-                    .neutralTint()
-                    .blocksTouchesBehindBottomBars()
-            }
-            Tab("Library", systemImage: "music.note.list", value: AppState.Tab.library) {
-                LibraryView()
-                    .neutralTint()
-                    .blocksTouchesBehindBottomBars()
-            }
-            Tab("Favorites", systemImage: "heart.fill", value: AppState.Tab.favorites) {
-                FavoritesTabView()
-                    .neutralTint()
-                    .blocksTouchesBehindBottomBars()
-            }
-            Tab(value: AppState.Tab.search, role: .search) {
-                SearchView()
-                    .neutralTint()
-                    .blocksTouchesBehindBottomBars()
-            }
+        TabView(selection: $state.tab) {
+            HomeView()
+                .neutralTint()
+                .blocksTouchesBehindBottomBars()
+                .tabItem { Label("Listening Now", systemImage: "house.fill") }
+                .tag(AppState.Tab.home)
+            LibraryView()
+                .neutralTint()
+                .blocksTouchesBehindBottomBars()
+                .tabItem { Label("Library", systemImage: "music.note.list") }
+                .tag(AppState.Tab.library)
+            FavoritesTabView()
+                .neutralTint()
+                .blocksTouchesBehindBottomBars()
+                .tabItem { Label("Favorites", systemImage: "heart.fill") }
+                .tag(AppState.Tab.favorites)
+            SearchView()
+                .neutralTint()
+                .blocksTouchesBehindBottomBars()
+                .tabItem { Label("Search", systemImage: "magnifyingglass") }
+                .tag(AppState.Tab.search)
         }
-        // The tab bar's selected tab shows the accent; each tab's content is neutral (neutralTint).
         .tint(Color.appAccent)
-        .tabViewStyle(.sidebarAdaptable)
-        .tabBarMinimizeBehavior(.onScrollDown)
     }
 
     private func navigateToTarget(_ target: AppState.NavTarget) {

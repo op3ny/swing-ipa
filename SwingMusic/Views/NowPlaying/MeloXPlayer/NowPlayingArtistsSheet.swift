@@ -115,11 +115,11 @@ private struct SheetRow<Artwork: View>: View {
                     Image(systemName: fav ? "heart.fill" : "heart")
                         .font(.body.weight(.semibold))
                         .foregroundStyle(fav ? Color.pink : .primary)
-                        .symbolEffect(.bounce, value: fav)
+                        
                         .frame(width: 44, height: 44)
                 }
-                .buttonStyle(.glass)
-                .buttonBorderShape(.circle)
+                .buttonStyle(.plain)
+                
                 .accessibilityLabel(fav ? "Remove from Favorites" : "Add to Favorites")
             }
         }

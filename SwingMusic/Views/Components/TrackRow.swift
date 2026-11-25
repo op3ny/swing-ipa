@@ -227,7 +227,7 @@ struct NowPlayingIndicator: View {
         Image(systemName: "waveform")
             .font(.body.weight(.semibold))
             .foregroundStyle(color)
-            .symbolEffect(.variableColor.iterative.dimInactiveLayers, options: .repeating, isActive: player.playing)
+            
             .accessibilityLabel(player.playing ? "Now playing" : "Paused")
     }
 }

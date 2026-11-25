@@ -48,7 +48,7 @@ private struct NowPlayingTransportButtonStyleBody<Label: View>: View {
         .onAppear {
             updatePressedState(isPressed, animated: false)
         }
-        .onChange(of: isPressed) { _, isPressed in
+        .compatOnChange(of: isPressed) { _, isPressed in
             updatePressedState(isPressed, animated: true)
         }
     }

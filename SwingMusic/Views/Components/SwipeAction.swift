@@ -41,7 +41,7 @@ struct PullActions: ViewModifier {
                 if let trailing { revealed(trailing, width: max(0, -offset), alignment: .trailing) { trailingWidth = $0 } }
             }
             .contentShape(Rectangle())
-            .gesture(HorizontalPan(changed: dragChanged, ended: dragEnded))
+            
     }
 
     private func revealed(_ item: PullAction, width: CGFloat, alignment: Alignment,

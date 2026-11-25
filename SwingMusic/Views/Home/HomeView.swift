@@ -90,14 +90,14 @@ struct HomeView: View {
             LazyHStack(spacing: 12) {
                 ForEach(heroes) { pick in
                     heroCard(pick.album, label: pick.label)
-                        .containerRelativeFrame(.horizontal) { length, _ in length - 48 }
+                        
                 }
             }
-            .scrollTargetLayout()
+            
         }
-        .scrollTargetBehavior(.viewAligned)
-        .contentMargins(.horizontal, 16, for: .scrollContent)
-        .scrollClipDisabled()
+        
+        
+        
     }
 
     private func heroCard(_ album: Album, label: String) -> some View {
@@ -238,10 +238,10 @@ struct HomeView: View {
                         homeItemCard(item)
                     }
                 }
-                .scrollTargetLayout()
+                
             }
-            .scrollTargetBehavior(.viewAligned)
-            .contentMargins(.horizontal, 16, for: .scrollContent)
+            
+            
         }
     }
 
@@ -335,11 +335,11 @@ struct HomeView: View {
                         .buttonStyle(PressableCardStyle())
                 }
             }
-            .scrollTargetLayout()
+            
         }
-        .scrollTargetBehavior(.viewAligned)
-        .contentMargins(.horizontal, 16, for: .scrollContent)
-        .scrollClipDisabled()
+        
+        
+        
     }
 
     private var artistRail: some View {
@@ -350,11 +350,11 @@ struct HomeView: View {
                         .buttonStyle(PressableCardStyle())
                 }
             }
-            .scrollTargetLayout()
+            
         }
-        .scrollTargetBehavior(.viewAligned)
-        .contentMargins(.horizontal, 16, for: .scrollContent)
-        .scrollClipDisabled()
+        
+        
+        
     }
 
     private var playlistRail: some View {
@@ -379,11 +379,11 @@ struct HomeView: View {
                     .buttonStyle(PressableCardStyle())
                 }
             }
-            .scrollTargetLayout()
+            
         }
-        .scrollTargetBehavior(.viewAligned)
-        .contentMargins(.horizontal, 16, for: .scrollContent)
-        .scrollClipDisabled()
+        
+        
+        
     }
 
     private var emptyState: some View {

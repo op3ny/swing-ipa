@@ -758,10 +758,6 @@ final class AppState: ObservableObject {
 
 extension View {
     func squeezeMiniPlayer(_ state: AppState) -> some View {
-        self.onScrollGeometryChange(for: CGFloat.self) { geo in
-            -geo.contentOffset.y
-        } action: { _, newValue in
-            state.scroll.update(newValue)
-        }
+        self
     }
 }

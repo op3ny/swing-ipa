@@ -4,8 +4,7 @@ struct NowPlayingFlowingLightBackground: View {
     private let player = AudioPlayer.shared
     @State private var isPlaying = false
     @State private var songID = 0
-    @Environment(\.accessibilityDimFlashingLights)
-    private var accessibilityDimFlashingLights
+    private let accessibilityDimFlashingLights = false
     @Environment(\.accessibilityReduceMotion)
     private var accessibilityReduceMotion
     @Environment(\.isLuminanceReduced)
@@ -38,14 +37,7 @@ struct NowPlayingFlowingLightBackground: View {
             )
 
             ZStack {
-                MeshGradient(
-                    width: ArtworkFlowingLightPalette.gridDimension,
-                    height: ArtworkFlowingLightPalette.gridDimension,
-                    points: meshPoints(
-                        at: playbackTime
-                    ),
-                    colors: colors
-                )
+                LinearGradient(colors: colors, startPoint: .topLeading, endPoint: .bottomTrailing)
                 .saturation(
                     max(saturation, 0)
                 )

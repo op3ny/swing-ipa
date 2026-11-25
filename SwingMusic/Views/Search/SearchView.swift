@@ -60,7 +60,7 @@ struct SearchView: View {
                     ForEach(SearchScope.allCases) { Text($0.rawValue).tag($0) }
                 }
                 .onSubmit(of: .search) { runSearch(query, delay: 0) }
-                .onChange(of: query) { _, v in runSearch(v, delay: 300_000_000) }
+                .compatOnChange(of: query) { _, v in runSearch(v, delay: 300_000_000) }
                 .appDestinations(zoom: nil)
         }
     }
@@ -71,7 +71,7 @@ struct SearchView: View {
             recentsList
         } else if let r = result {
             if isEmpty(r) {
-                ContentUnavailableView.search(text: query)
+                CompatUnavailableView.search(text: query)
             } else {
                 resultsList(r)
             }
@@ -85,7 +85,7 @@ struct SearchView: View {
     @ViewBuilder
     private var recentsList: some View {
         if recents.isEmpty {
-            ContentUnavailableView(
+            CompatUnavailableView(
                 "Search Your Library",
                 systemImage: "magnifyingglass",
                 description: Text("Find songs, albums and artists.")

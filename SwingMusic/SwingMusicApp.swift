@@ -27,7 +27,7 @@ struct SwingMusicApp: App {
             }
             .environmentObject(state)
             .preferredColorScheme(state.appearanceMode.colorScheme)
-            .onChange(of: scenePhase) { _, phase in
+            .compatOnChange(of: scenePhase) { _, phase in
                 if phase == .active {
                     Task {
                         if await API.shared.ensureReachable() { await reloadAfterServerSwitch() }

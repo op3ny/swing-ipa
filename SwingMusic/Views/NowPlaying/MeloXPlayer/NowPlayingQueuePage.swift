@@ -113,7 +113,7 @@ struct NowPlayingQueuePage: View {
                         .listRowBackground(Color.clear)
 
                     if upcomingEntries.isEmpty {
-                        ContentUnavailableView(
+                        CompatUnavailableView(
                             "Nothing up next",
                             systemImage: "list.bullet"
                         )
@@ -153,34 +153,16 @@ struct NowPlayingQueuePage: View {
                 }
             }
             .listStyle(.plain)
-            .listSectionSpacing(0)
+            
             .scrollContentBackground(.hidden)
             .scrollIndicators(.visible)
-            .contentMargins(.top, 0, for: .scrollContent)
+            
             .environment(\.defaultMinListRowHeight, 1)
             .environment(\.defaultMinListHeaderHeight, 0)
             .environment(\.editMode, .constant(.active))
             .padding(.bottom, bottomContentInset)
-            .onScrollGeometryChange(
-                for: CGFloat.self,
-                of: { geometry in
-                    max(
-                        geometry.contentOffset.y
-                            + geometry.contentInsets.top,
-                        0
-                    )
-                }
-            ) { _, offset in
-                updateSongHeaderState(for: offset)
-            }
-            .onScrollGeometryChange(for: Bool.self) { geo in
-                geo.contentOffset.y + geo.contentInsets.top < -70
-            } action: { _, pulled in
-                if pulled, !showsHistory, !historyEntries.isEmpty {
-                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
-                    withAnimation(.smooth(duration: 0.35)) { showsHistory = true }
-                }
-            }
+            
+            
             .onReceive(NotificationCenter.default.publisher(for: Self.shownNotification)) { _ in
                 showsHistory = false
                 scrollToCurrent(scrollProxy)
@@ -344,7 +326,7 @@ private struct NowPlayingQueueModeControls: View {
         Button(action: action) {
             Image(systemName: systemImage)
                 .contentTransition(
-                    .symbolEffect(.replace.downUp.wholeSymbol)
+                    
                 )
                 .font(.title3.weight(.semibold))
                 .frame(maxWidth: .infinity)

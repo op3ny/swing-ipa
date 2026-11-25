@@ -62,7 +62,6 @@
 		7502CEA78E5C1C9736D7AB92 /* LyricHighlightRevealProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427B538FB04B20F9CE607DC2 /* LyricHighlightRevealProgress.swift */; };
 		762CF58D9F8C702DF2F84159 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82D1F54EDB19443A2087E9B /* LibraryView.swift */; };
 		78C27BE17C932CC68786DA67 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6A1CE5AA8C59445D6A82BB /* Log.swift */; };
-		7ADB5DA2AF762D62FA1FCB72 /* LyricLineFitting.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC01E0AC713B3F31917982B4 /* LyricLineFitting.swift */; };
 		7C1A2A2A5F1212253E020E28 /* PlaylistDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9BCA4D49659849D2100214F /* PlaylistDetailView.swift */; };
 		7CB03C84FE7537A2023CA9BE /* LyricsMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0C4FBA6A0E85F44458D409 /* LyricsMatcher.swift */; };
 		7D62D7955DD6139864537917 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120802B560D583650C2A53DA /* Endpoints.swift */; };
@@ -85,7 +84,6 @@
 		914603120EDC0518052A593A /* AutoMix.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA7CE90E220DC32E9963928 /* AutoMix.swift */; };
 		95FCC70105A2078D25F721CB /* AlbumsGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5DCAB1DCE22386D3368BEF /* AlbumsGridView.swift */; };
 		98FDB289CCBAD76073399D2F /* LyricsBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6DD9C2EBD870BC80508F36 /* LyricsBridge.swift */; };
-		99EE1130D9364A5B0B62ACD3 /* LyricGlowTextRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B01DA9A5E1EC5E254FCD9B /* LyricGlowTextRenderer.swift */; };
 		9C881951EA96943F082223C2 /* LNPopupUI in Frameworks */ = {isa = PBXBuildFile; productRef = 15368644BE548FAAC6CAA968 /* LNPopupUI */; };
 		9CF20130B0A2CB5AD074E387 /* LyricWordSegmenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF24C922D0C9FED57C90897 /* LyricWordSegmenter.swift */; };
 		9D7268EF5997F55ECB07231D /* LyricModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB64F204B9F782E7B0A0B8E /* LyricModels.swift */; };
@@ -112,7 +110,6 @@
 		ACA647D419808494D4E56905 /* NowPlayingFlowingLightFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = E488D03516D667FF17846298 /* NowPlayingFlowingLightFields.swift */; };
 		ACF72C820628F9B59B008BC3 /* MusicLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333D9AE9AFD026B30CCF2282 /* MusicLiveActivity.swift */; };
 		AF542CE77A4ED02A43DC5AF2 /* SwingMusicApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7EFE85A8D628C277B61EF0 /* SwingMusicApp.swift */; };
-		AFD6184A482CB129789B219A /* LyricRubyTextBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F100526DC3B282DFA61F8F77 /* LyricRubyTextBuilder.swift */; };
 		B0CFAAF097FE7342DD548FD1 /* NowPlayingSongHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B77B3E3CF3BED57E5F2238F /* NowPlayingSongHeader.swift */; };
 		B1126F275CE6A70072E4EFC7 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147BA2C0B4FEE2E772D8559E /* DownloadManager.swift */; };
 		B14E37F9C2D2CD6AA85A4DCC /* NowPlayingLyricsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B0E610173FDA28AE2E966D /* NowPlayingLyricsPage.swift */; };
@@ -974,14 +971,11 @@
 				762CF58D9F8C702DF2F84159 /* LibraryView.swift in Sources */,
 				78C27BE17C932CC68786DA67 /* Log.swift in Sources */,
 				D1CE7BE04AE12FC376E7B7CB /* LoginView.swift in Sources */,
-				99EE1130D9364A5B0B62ACD3 /* LyricGlowTextRenderer.swift in Sources */,
 				7502CEA78E5C1C9736D7AB92 /* LyricHighlightRevealProgress.swift in Sources */,
-				7ADB5DA2AF762D62FA1FCB72 /* LyricLineFitting.swift in Sources */,
 				0E2EE6DE570BB0C65D8DA8F5 /* LyricLongToneEmphasis.swift in Sources */,
 				9D7268EF5997F55ECB07231D /* LyricModels.swift in Sources */,
 				60B9946D31D6D3DC63263073 /* LyricRomanizationAligner.swift in Sources */,
 				90BA5A29F3F29499FC699990 /* LyricRubyLayout.swift in Sources */,
-				AFD6184A482CB129789B219A /* LyricRubyTextBuilder.swift in Sources */,
 				9CF20130B0A2CB5AD074E387 /* LyricWordSegmenter.swift in Sources */,
 				54E06D42D099E242A1AC88D6 /* Lyrics.swift in Sources */,
 				98FDB289CCBAD76073399D2F /* LyricsBridge.swift in Sources */,

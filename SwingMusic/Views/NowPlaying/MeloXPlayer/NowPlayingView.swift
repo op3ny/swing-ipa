@@ -83,7 +83,7 @@ struct NowPlayingView: View {
                         portraitContent(for: song)
                     }
                 } else {
-                    ContentUnavailableView("Nothing playing", systemImage: "music.note")
+                    CompatUnavailableView("Nothing playing", systemImage: "music.note")
                         .foregroundStyle(.white)
                 }
 
@@ -98,7 +98,7 @@ struct NowPlayingView: View {
                         .shadow(color: .black.opacity(0.24), radius: 12, y: 5)
                         .transition(.move(edge: .top).combined(with: .opacity))
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                        .safeAreaPadding(.top, 58)
+                        
                         .accessibilityLabel("")
                 }
             }
@@ -172,7 +172,7 @@ struct NowPlayingView: View {
         .onReceive(NotificationCenter.default.publisher(for: .init("debugOpenQueue"))) { _ in
             page = .queue
         }
-        .onChange(of: page) { _, newPage in
+        .compatOnChange(of: page) { _, newPage in
             if newPage == .queue {
                 NotificationCenter.default.post(name: NowPlayingQueuePage.shownNotification, object: nil)
             }
@@ -187,7 +187,7 @@ struct NowPlayingView: View {
             guard settings.rememberNowPlayingPage else { return }
             settings.rememberedNowPlayingPage = newPage.rawValue
         }
-        .onChange(of: accessibilityVoiceOverEnabled) {
+        .compatOnChange(of: accessibilityVoiceOverEnabled) {
             _, voiceOverEnabled in
             guard usesAutoHidingAppleMusicInterface else { return }
 
@@ -198,7 +198,7 @@ struct NowPlayingView: View {
                 registerAppleMusicControlsActivity()
             }
         }
-        .onChange(of: settings.lyricsStyle) { _, newStyle in
+        .compatOnChange(of: settings.lyricsStyle) { _, newStyle in
             cancelAppleMusicControlsAutoHide()
             showsLyricsControls = true
 
@@ -214,7 +214,7 @@ struct NowPlayingView: View {
         .onAppear {
             resetPodcastPageIfNeeded()
         }
-        .onChange(of: player.currentSong?.id) {
+        .compatOnChange(of: player.currentSong?.id) {
             resetPodcastPageIfNeeded()
         }
     }
@@ -269,7 +269,7 @@ struct NowPlayingView: View {
                 }
         }
         .padding(.horizontal, Self.portraitHorizontalPadding)
-        .safeAreaPadding(.bottom, 3)
+        
     }
 
     private func portraitPlayerControlsLayer(

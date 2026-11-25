@@ -71,13 +71,7 @@ private struct NowPlayingAutoMixStatus: View {
         HStack(spacing: 5) {
             Image(systemName: "waveform")
                 .font(.system(size: 9, weight: .semibold))
-                .symbolEffect(
-                    .variableColor.iterative,
-                    options: .repeating.speed(1.2),
-                    isActive:
-                        !accessibilityReduceMotion
-                            && player.isAutoMixTransitioning
-                )
+                
 
             Text("Mixing")
                 .fontWeight(.medium)
@@ -217,10 +211,7 @@ struct NowPlayingTransportControls: View {
                             .contentTransition(
                                 accessibilityReduceMotion
                                     ? .identity
-                                    : .symbolEffect(
-                                        .replace.downUp.wholeSymbol,
-                                        options: .speed(1.6)
-                                    )
+                                    : 
                             )
                             .animation(
                                 accessibilityReduceMotion

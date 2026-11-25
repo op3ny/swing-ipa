@@ -63,11 +63,7 @@ struct DetailScrollTitle: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .onScrollGeometryChange(for: Bool.self) { geo in
-                geo.contentOffset.y + geo.contentInsets.top > threshold
-            } action: { _, now in
-                withAnimation(.easeInOut(duration: 0.2)) { shows = now }
-            }
+            
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text(title)

@@ -37,8 +37,8 @@ struct ElasticSlider<LeadingContent: View, TrailingContent: View>: View {
             }
         }
         .animation(.smooth(duration: 0.3, extraBounce: 0.3), value: isActive)
-        .onChange(of: isActive) { _, active in onEditingChanged?(active) }
-        .sensoryFeedback(.increase, trigger: isValueExtreme) { config.defaultSensoryFeedback && $1 }
+        .compatOnChange(of: isActive) { _, active in onEditingChanged?(active) }
+        
     }
 }
 
@@ -326,8 +326,8 @@ extension EnvironmentValues {
 }
 
 #Preview {
-    @Previewable @State var progress: Double = 0.5
-    @Previewable @State var volume: Double = 0.5
+    @State var progress: Double = 0.5
+    @State var volume: Double = 0.5
     let range = 0.0 ... 2
     VStack(spacing: 50) {
         ElasticSlider(

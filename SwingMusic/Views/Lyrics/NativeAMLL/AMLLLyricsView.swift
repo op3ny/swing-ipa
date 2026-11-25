@@ -1404,7 +1404,7 @@ struct NativeAMLLLyricsView: View {
                 break
             }
         }
-        .onChange(of: engine.state) { _, s in
+        .compatOnChange(of: engine.state) { _, s in
             applyFallback()
             if s == .ready || s == .empty { onReady?() }
         }
@@ -1432,6 +1432,6 @@ private struct AppLyricsListener: View {
 
     var body: some View {
         Color.clear
-            .onChange(of: state.lyricsRevision, initial: true) { onChange(state.lyrics) }
+            .compatOnChange(of: state.lyricsRevision, initial: true) { onChange(state.lyrics) }
     }
 }

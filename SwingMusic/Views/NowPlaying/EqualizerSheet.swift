@@ -146,7 +146,7 @@ private struct GlassBall: View {
         if #available(iOS 26.0, *) {
             Circle()
                 .fill(.clear)
-                .glassEffect(.clear.interactive(), in: Circle())
+                
         } else {
             Circle().fill(.ultraThinMaterial)
         }
@@ -156,7 +156,7 @@ private struct GlassBall: View {
 struct EqualizerSheet: View {
     var body: some View {
         NavigationStack { EqualizerView(isSheet: true) }
-            .presentationSizing(.form)
+            
     }
 }
 
@@ -171,7 +171,7 @@ struct EqualizerView: View {
                 Toggle("Equalizer", isOn: $eq.enabled.animation(.smooth))
                     .padding(.horizontal, 16)
                     .padding(.vertical, 12)
-                    .glassEffect(.regular, in: .rect(cornerRadius: 26))
+                    
                 Text("Adjusts the sound for all songs.")
                     .font(.footnote)
                     .foregroundStyle(.secondary)
@@ -190,7 +190,7 @@ struct EqualizerView: View {
                     presetChips
                 }
                 .padding(16)
-                .glassEffect(.regular, in: .rect(cornerRadius: 26))
+                
                 .padding(.top, 20)
                 .disabled(!eq.enabled)
                 .opacity(eq.enabled ? 1 : 0.4)
@@ -214,7 +214,7 @@ struct EqualizerView: View {
             }
             if isSheet {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Done", role: .confirm) { dismiss() }
+                    Button("Done") { dismiss() }
                 }
             }
         }
@@ -222,7 +222,7 @@ struct EqualizerView: View {
 
     private var presetChips: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            GlassEffectContainer(spacing: 8) {
+            Group {
             HStack(spacing: 8) {
                 ForEach(Equalizer.presets) { preset in
                     let selected = eq.selectedPreset == preset
@@ -237,7 +237,7 @@ struct EqualizerView: View {
                             .foregroundStyle(selected ? Color.white : Color.primary)
                     }
                     .buttonStyle(.plain)
-                    .glassEffect(selected ? .regular.tint(Color.appAccent).interactive() : .regular.interactive(), in: .capsule)
+                    
                 }
             }
             .padding(.horizontal, 4)
@@ -245,7 +245,7 @@ struct EqualizerView: View {
             }
         }
         .padding(.horizontal, -16)
-        .contentMargins(.horizontal, 16, for: .scrollContent)
+        
     }
 }
 
@@ -302,7 +302,7 @@ struct EqualizerGraph: View {
                     let active = dragging == i
                     Capsule()
                         .fill(active ? Color.clear : Color.white)
-                        .glassEffect(active ? .clear.interactive() : .regular.interactive(), in: .capsule)
+                        
                         .frame(width: active ? knob * 1.9 : knob * 1.45, height: active ? knob * 1.3 : knob)
                         .shadow(color: .black.opacity(active ? 0.12 : 0.25), radius: active ? 8 : 3, y: active ? 4 : 1)
                         .animation(.spring(response: 0.3, dampingFraction: 0.65), value: active)
@@ -312,7 +312,7 @@ struct EqualizerGraph: View {
                             Text(EqualizerView.gainText(bands[i]))
                                 .font(.caption.weight(.bold).monospacedDigit())
                                 .padding(.horizontal, 8).padding(.vertical, 4)
-                                .glassEffect(.regular, in: .capsule)
+                                
                                 .position(x: points[i].x, y: max(12, points[i].y - 30))
                                 .transition(.scale.combined(with: .opacity))
                         }

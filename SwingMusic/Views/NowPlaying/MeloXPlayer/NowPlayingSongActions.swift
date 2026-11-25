@@ -54,7 +54,7 @@ struct NowPlayingSongActions: View {
             Image(systemName: isFavorite ? "heart.fill" : "heart")
                 .font(.title3.weight(.medium))
                 .foregroundStyle(isFavorite ? Color.pink : .white)
-                .symbolEffect(.bounce, value: isFavorite)
+                
                 .frame(width: 40, height: 40)
                 .background(.white.opacity(0.13), in: .circle)
                 .contentShape(.circle)

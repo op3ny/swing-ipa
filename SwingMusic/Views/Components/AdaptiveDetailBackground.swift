@@ -184,11 +184,7 @@ private struct DetailBackground: ViewModifier {
             .environment(\.detailTint, palette?.accent)
             .tint(palette?.accent)
             .environment(\.colorScheme, palette == nil ? colorSchemeFallback : .dark)
-            .onScrollGeometryChange(for: CGFloat.self) { geo in
-                max(0, geo.contentOffset.y + geo.contentInsets.top)
-            } action: { _, value in
-                scrolled = value
-            }
+            
             .background {
                 if let palette {
                     ZStack(alignment: .top) {

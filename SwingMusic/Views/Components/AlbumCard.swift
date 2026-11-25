@@ -14,7 +14,7 @@ struct ZoomSource: ViewModifier {
     let id: String
     @Environment(\.zoomNamespace) private var ns
     func body(content: Content) -> some View {
-        if let ns { content.matchedTransitionSource(id: id, in: ns) }
+        if let ns { content }
         else { content }
     }
 }
@@ -24,7 +24,7 @@ extension View {
     // Zooms in from the card with the same id when there is a namespace to match it in.
     @ViewBuilder
     func zoomTransition(_ id: String, in ns: Namespace.ID?) -> some View {
-        if let ns { navigationTransition(.zoom(sourceID: id, in: ns)) } else { self }
+        self
     }
 
     // Where every pushed album, artist, playlist, folder, mix and album section leads. Applied once to
