@@ -83,7 +83,7 @@ struct ArtistDetailView: View {
     private var heroSection: some View {
             VStack(spacing: 16) {
                 GeometryReader { geo in
-                    let minY = geo.frame(in: .scrollView).minY
+                    let minY = geo.frame(in: .global).minY
                     let scale = minY > 0 ? 1 + minY / 600 : 1 + minY / 2400
                     let shift = minY > 0 ? -minY * 0.3 : -minY * 0.2
                     let alpha = minY < 0 ? max(0.25, 1 + minY / 500) : 1
