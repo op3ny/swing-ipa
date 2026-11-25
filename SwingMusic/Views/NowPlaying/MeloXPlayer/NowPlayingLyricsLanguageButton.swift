@@ -7,7 +7,7 @@ struct NowPlayingLyricsLanguageButton: View {
     let hasRomanizations: Bool
 
     var body: some View {
-        @Bindable var settings = settings
+        @ObservedObject var settings = settings
 
         Menu {
             if hasRomanizations {

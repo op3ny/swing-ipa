@@ -10,7 +10,7 @@ struct LibraryView: View {
     private let menu: [LibItem] = [.folders, .artists, .albums, .playlists, .downloads]
 
     var body: some View {
-        @Bindable var state = state
+        @ObservedObject var state = state
         NavigationStack(path: $state.libraryPath) {
             List {
                 Section {

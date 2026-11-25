@@ -14,7 +14,7 @@ struct ContentView: View {
     // resets the root view of both on each update, which rebuilds any menu that is open. Playback state
     // that changes while music plays belongs in MiniPlayerItem instead.
     var body: some View {
-        @Bindable var state = state
+        @ObservedObject var state = state
         tabView
             .popup(isBarPresented: $barPresented, isPopupOpen: $state.showPlayer) {
                 MiniPlayerItem {
@@ -57,7 +57,7 @@ struct ContentView: View {
     }
 
     private var tabView: some View {
-        @Bindable var state = state
+        @ObservedObject var state = state
         return TabView(selection: $state.tab) {
             Tab("Listening Now", systemImage: "house.fill", value: AppState.Tab.home) {
                 HomeView()

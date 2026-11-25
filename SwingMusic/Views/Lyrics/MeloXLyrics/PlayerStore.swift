@@ -3,23 +3,22 @@ import Foundation
 import Observation
 
 @MainActor
-@Observable
-final class PlayerStore {
+final class PlayerStore: ObservableObject {
     static let shared = PlayerStore()
 
-    var currentSong: Song?
-    var isPlaying: Bool = false
-    var progress: TimeInterval = 0
-    var seekRevision: Int = 0
-    var shuffleOn: Bool = false
-    var loopMode: AudioPlayer.LoopMode = .off
-    var autoplayOn: Bool = false
-    var queueTracks: [Track] = []
-    var queueIndex: Int = 0
-    var autoMixOn: Bool = false
+    @Published var currentSong: Song?
+    @Published var isPlaying: Bool = false
+    @Published var progress: TimeInterval = 0
+    @Published var seekRevision: Int = 0
+    @Published var shuffleOn: Bool = false
+    @Published var loopMode: AudioPlayer.LoopMode = .off
+    @Published var autoplayOn: Bool = false
+    @Published var queueTracks: [Track] = []
+    @Published var queueIndex: Int = 0
+    @Published var autoMixOn: Bool = false
 
-    @ObservationIgnored private var cancellables: Set<AnyCancellable> = []
-    @ObservationIgnored private let player = AudioPlayer.shared
+    private var cancellables: Set<AnyCancellable> = []
+    private let player = AudioPlayer.shared
 
     private init() {
         player.$current

@@ -100,12 +100,11 @@ extension AppSettings {
 }
 
 @MainActor
-@Observable
-final class LyricsStore {
+final class LyricsStore: ObservableObject {
     static let shared = LyricsStore()
 
-    var lyrics: [MXLyricLine] = []
-    var errorMessage: String?
+    @Published var lyrics: [MXLyricLine] = []
+    @Published var errorMessage: String?
 
     func update(from parsed: ParsedLyrics?) {
         lyrics = parsed?.meloXLines ?? []

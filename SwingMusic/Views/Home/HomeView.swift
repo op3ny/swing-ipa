@@ -21,7 +21,7 @@ struct HomeView: View {
     private var isLoading: Bool { !didLoad && state.homeSections.isEmpty }
 
     var body: some View {
-        @Bindable var state = state
+        @ObservedObject var state = state
         NavigationStack(path: $state.homePath) {
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVStack(alignment: .leading, spacing: 28) {

@@ -8,7 +8,7 @@ struct SettingsView: View {
     @AppStorage(ShakeToReport.key) private var shakeToReport = false
 
     var body: some View {
-        @Bindable var state = state
+        @ObservedObject var state = state
         List {
             Section {
                 HStack(spacing: 16) {

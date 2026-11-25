@@ -41,7 +41,7 @@ jobs:
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGN_IDENTITY="" \
             PROVISIONING_PROFILE_SPECIFIER="" \
-            IPHONEOS_DEPLOYMENT_TARGET=16.1 \
+            IPHONEOS_DEPLOYMENT_TARGET=16.4 \
             -skipPackagePluginValidation \
             2>&1 | tee "$RUNNER_TEMP/archive.log"
 

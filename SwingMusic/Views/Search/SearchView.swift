@@ -52,7 +52,7 @@ struct SearchView: View {
     }
 
     var body: some View {
-        @Bindable var state = state
+        @ObservedObject var state = state
         NavigationStack(path: $state.searchPath) {
             content
                 .navigationTitle("Search")

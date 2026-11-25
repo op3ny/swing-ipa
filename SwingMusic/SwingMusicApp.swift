@@ -2,7 +2,7 @@ import SwiftUI
 
 @main
 struct SwingMusicApp: App {
-    @State private var state = AppState()
+    @StateObject private var state = AppState()
     @AppStorage(ShakeToReport.key) private var shakeToReport = false
     @Environment(\.scenePhase) private var scenePhase
 

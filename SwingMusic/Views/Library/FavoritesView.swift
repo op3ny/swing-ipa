@@ -221,7 +221,7 @@ struct FavoritesTabView: View {
     @Namespace private var zoomNS
 
     var body: some View {
-        @Bindable var state = state
+        @ObservedObject var state = state
         NavigationStack(path: $state.favoritesPath) {
             FavoritesView()
                 .appDestinations(zoom: zoomNS)
