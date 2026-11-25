@@ -325,10 +325,7 @@ private struct NowPlayingQueueModeControls: View {
     ) -> some View {
         Button(action: action) {
             Image(systemName: systemImage)
-                .contentTransition(
-                    
-                )
-                .font(.title3.weight(.semibold))
+                                .font(.title3.weight(.semibold))
                 .frame(maxWidth: .infinity)
                 .frame(height: 44)
                 .foregroundStyle(

@@ -1,3 +1,4 @@
+import SwiftUI
 import Foundation
 
 struct LyricSyllable: Identifiable, Hashable {

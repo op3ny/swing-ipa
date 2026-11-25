@@ -153,7 +153,7 @@ struct FloatingLyricsButton: View { var body: some View { EmptyView() } }
 
 extension View {
     func keepsScreenAwake(_ isEnabled: Bool) -> some View {
-        onChange(of: isEnabled, initial: true) { _, enabled in
+        compatOnChange(of: isEnabled, initial: true) { _, enabled in
             UIApplication.shared.isIdleTimerDisabled = enabled
         }
         .onDisappear { UIApplication.shared.isIdleTimerDisabled = false }
