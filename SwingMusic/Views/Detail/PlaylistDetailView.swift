@@ -48,10 +48,14 @@ struct PlaylistDetailView: View {
         VStack(spacing: 14) {
             GeometryReader { geo in
                 let minY = geo.frame(in: .scrollView).minY
+                let scale = minY > 0 ? 1 + minY / 600 : 1 + minY / 2400
+                let shift = minY > 0 ? -minY * 0.3 : -minY * 0.2
+                let alpha = minY < 0 ? max(0.25, 1 + minY / 500) : 1
+
                 PlaylistImageGrid(playlist: state.allPlaylists.first { $0.id == id }, size: coverSize)
-                    .scaleEffect(minY > 0 ? 1 + minY / 600 : 1 + minY / 2400, anchor: .bottom)
-                    .offset(y: minY > 0 ? -minY * 0.3 : -minY * 0.2)
-                    .opacity(minY < 0 ? max(0.25, 1 + minY / 500) : 1)
+                    .scaleEffect(scale, anchor: .bottom)
+                    .offset(y: shift)
+                    .opacity(alpha)
                     .frame(maxWidth: .infinity)
             }
             .frame(height: coverSize)

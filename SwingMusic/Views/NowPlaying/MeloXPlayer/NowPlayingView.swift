@@ -206,7 +206,7 @@ struct NowPlayingView: View {
                 registerAppleMusicControlsActivity()
             }
         }
-        .onChange(
+        .compatOnChange(
             of: settings.appleMusicLyricsInterfaceAutoHideDelay
         ) {
             registerAppleMusicControlsActivity()
