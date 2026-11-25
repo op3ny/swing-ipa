@@ -34,17 +34,17 @@ struct MusicLiveActivity: Widget {
                 DynamicIslandExpandedRegion(.bottom) {
                     VStack(spacing: 10) {
                         HStack(spacing: 28) {
-                            Button(intent: PreviousTrackIntent()) {
+                            Button(action: {}) {
                                 Image(systemName: "backward.fill")
                                     .font(.system(size: 18, weight: .semibold))
                                     .foregroundStyle(.white.opacity(0.9))
                             }
-                            Button(intent: TogglePlaybackIntent()) {
+                            Button(action: {}) {
                                 Image(systemName: ctx.state.playing ? "pause.fill" : "play.fill")
                                     .font(.system(size: 28, weight: .bold))
                                     .foregroundStyle(.white)
                             }
-                            Button(intent: NextTrackIntent()) {
+                            Button(action: {}) {
                                 Image(systemName: "forward.fill")
                                     .font(.system(size: 18, weight: .semibold))
                                     .foregroundStyle(.white.opacity(0.9))

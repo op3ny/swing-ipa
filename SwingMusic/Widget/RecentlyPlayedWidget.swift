@@ -48,7 +48,6 @@ struct ArtTile: View {
             if let d = track.imageData, let img = UIImage(data: d) {
                 Image(uiImage: img)
                     .resizable()
-                    .widgetAccentedRenderingMode(.accentedDesaturated)
                     .scaledToFill()
             } else {
                 LinearGradient(
@@ -130,9 +129,7 @@ struct RecentSmallView: View {
             RecentEmptyView()
         }
         }
-        .containerBackground(for: .widget) {
-            Color(.systemBackground)
-        }
+        .background(Color(.systemBackground))
     }
 }
 
@@ -172,9 +169,7 @@ struct RecentMediumView: View {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 14)
-        .containerBackground(for: .widget) {
-            Color(.systemBackground)
-        }
+        .background(Color(.systemBackground))
     }
 }
 
@@ -222,9 +217,7 @@ struct RecentLargeView: View {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 14)
-        .containerBackground(for: .widget) {
-            Color(.systemBackground)
-        }
+        .background(Color(.systemBackground))
     }
 }
 
@@ -258,7 +251,7 @@ struct RecentlyPlayedEntryView: View {
     var body: some View {
         if entry.tracks.isEmpty {
             RecentEmptyView()
-                .containerBackground(for: .widget) { Color(.systemBackground) }
+                .background(Color(.systemBackground))
         } else {
             content
         }

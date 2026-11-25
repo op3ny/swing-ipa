@@ -2,7 +2,7 @@ name: SwingMusicApp
 options:
   bundleIdPrefix: com.swingmusic
   deploymentTarget:
-    iOS: "16.0"
+    iOS: "16.1"
   createIntermediateGroups: true
 
 packages:

@@ -75,11 +75,10 @@ private struct WidgetArtwork: View {
                 if let data, let img = UIImage(data: data) {
                     Image(uiImage: img)
                         .resizable()
-                        .widgetAccentedRenderingMode(.accentedDesaturated)
                         .scaledToFill()
                 } else {
                     ZStack {
-                        Rectangle().fill(.fill.tertiary)
+                        Rectangle().fill(Color.gray.opacity(0.3))
                         Image(systemName: "music.note")
                             .font(.system(size: size * 0.34, weight: .medium))
                             .foregroundStyle(.secondary)
@@ -145,7 +144,7 @@ private struct ControlButton: View {
     var prominent = false
 
     var body: some View {
-        Button(intent: intent) {
+        Button(action: {}) {
             Image(systemName: systemName)
                 .font(.system(size: size * 0.42, weight: .bold))
                 .foregroundStyle(prominent ? Color.black : Color.white)
@@ -154,7 +153,6 @@ private struct ControlButton: View {
                 .widgetAccentable()
         }
         .buttonStyle(.plain)
-        .contentTransition(.symbolEffect(.replace))
     }
 }
 
@@ -233,7 +231,7 @@ struct SmallWidget: View {
         }
         .foregroundStyle(.white)
         .environment(\.colorScheme, .dark)
-        .containerBackground(for: .widget) { ArtworkBackdrop(data: entry.imageData) }
+        .background(ArtworkBackdrop(data: entry.imageData))
     }
 }
 
@@ -255,7 +253,7 @@ struct MediumWidget: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .environment(\.colorScheme, .dark)
-        .containerBackground(for: .widget) { ArtworkBackdrop(data: entry.imageData) }
+        .background(ArtworkBackdrop(data: entry.imageData))
     }
 }
 
@@ -278,7 +276,7 @@ struct LargeWidget: View {
             }
         }
         .environment(\.colorScheme, .dark)
-        .containerBackground(for: .widget) { ArtworkBackdrop(data: entry.imageData) }
+        .background(ArtworkBackdrop(data: entry.imageData))
     }
 }
 
