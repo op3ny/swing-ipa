@@ -1,76 +1,86 @@
-<div align="center" style="display: flex; justify-content: center; align-items: center;">
-  <img src='github/images/icon.png' width="96">
+<div align="center">
+  <img src='github/images/icon.png' width="96" alt="Swing Music">
+  <h1>Swing Music para iOS 16</h1>
+  <p><b>Backport não oficial do cliente iOS do Swing Music para iPhone/iPad presos no iOS 16</b></p>
+  <p>
+    <a href="https://github.com/op3ny/swing-ipa/releases/latest"><strong>Baixar IPA</strong></a>
+    ·
+    <a href="https://github.com/swingmx/ios">Cliente original</a>
+    ·
+    <a href="https://swingmx.com/guide/introduction.html">Documentação do Swing Music</a>
+  </p>
 </div>
-<div align="center" style="font-size: 2rem"><b>Swing Music iOS Client</b></div>
 
-<div align="center"><b><sub><code>v1.0.0 Beta 10</code></sub></b></div>
+## Por que este projeto existe
 
-**<div align="center" style="padding-top: 1.25rem">[Join the Beta](https://testflight.apple.com/join/68bWKBss) • <a href="https://github.com/sponsors/swingmx" target="_blank">Sponsor Us ❤️</a> • [Swing Music Docs](https://swingmx.com/guide/introduction.html) • [r/SwingMusicApp](https://www.reddit.com/r/SwingMusicApp)</div>**
+O [cliente oficial](https://github.com/swingmx/ios) do Swing Music passou a exigir **iOS 26** (as versões mais antigas do histórico exigiam iOS 18). Isso deixa fora aparelhos perfeitamente funcionais como o **iPhone 8 Plus**, que para no **iOS 16.7.x** — é o teto de sistema da família A11.
 
-##
+Este fork pega o código oficial, ajusta o deployment target para **iOS 16.4** e substitui as APIs recentes por equivalentes compatíveis. O resultado é um **IPA não assinado**, pensado para dispositivos **jailbroken** (onde a assinatura da App Store não é necessária).
 
-![Image](github/images/readme.webp)
-This client application allows you to stream music on your iPhone and iPad from your Swing Music server.
+> Não é um projeto afiliado à swingmx. O servidor continua sendo o [swingmx/swingmusic](https://github.com/swingmx/swingmusic); aqui está apenas o cliente iOS.
 
-### Features
+## O que foi adaptado
 
-Below is a list of the currently implemented features:
+- `@Observable` / `@Bindable` / `@ObservationIgnored` → `ObservableObject` / `@ObservedObject` / `@EnvironmentObject`
+- `Tab(...)` do iOS 18 → `TabView` com `.tabItem` legado
+- Substituídos: `ContentUnavailableView`, `.contentMargins`, `.scrollTargetLayout/Behavior`, `.scrollClipDisabled`, `.safeAreaPadding`, `.symbolEffect`, `.glassEffect`, `GlassEffectContainer`, `MeshGradient`, `.onScrollGeometryChange`, `.presentationSizing`, `.matchedTransitionSource`, `Text.Layout`
+- Renderizador de letras MeloX (iOS 17+) removido do target; stubs mantêm o resto do código compilando
+- Widgets e Live Activities simplificados para iOS 16
+- Build sem assinatura (`CODE_SIGNING_ALLOWED=NO`) + assinatura fake com `ldid`
 
-**Playback**
-- Streaming with selectable audio quality (up to lossless)
-- Queue with shuffle, repeat and autoplay
-- Recently played in the queue
-- Crossfade
-- Sleep timer
-- Equalizer (UI only for now)
-- AirPlay
-- Downloads for offline listening
-- Listening history synced to your server
+Efeitos visuais e animações ficaram mais simples que no original. As funções principais — login, biblioteca, reprodução, fila, downloads, letras, widgets — continuam presentes.
 
-**Lyrics**
-- Word-by-word synced lyrics with background vocals
-- Lyrics fetched in the app, also when you're away from home
-- Synced line-by-line lyrics as fallback
-- Songwriter credits
+## Instalação (iPhone jailbroken)
 
-**Library**
-- Albums, Artists and Playlists view
-- Folders view
-- Favorites
-- Mixes
-- Add songs to playlists
-- Search Tracks, Albums, Artists
-- Explicit badges
-- Artist bios and listening stats
+1. Instale **AppSync Unified** e **Filza** (por exemplo, repo `https://cydia.akemi.ai/`).
+2. Baixe o IPA na [última release](https://github.com/op3ny/swing-ipa/releases/latest).
+3. Abra o arquivo no Filza e toque em **Installer**.
+4. Alternativa por SSH:
+   ```sh
+   installipa /caminho/SwingMusic-ios16-unsigned.ipa
+   ```
+5. Na primeira abertura, informe endereço, usuário e senha do seu servidor Swing Music.
 
-**iPhone & iPad**
-- iPad layout with landscape player and sidebar
-- Widgets
-- Live Activity and Lock Screen controls
-- Swipe actions on songs
-- Light and dark theme
+Detalhes da release atual: bundle `com.swingmusic.app`, v1.0.0 (build 11), `MinimumOSVersion: 16.4`, binário arm64.
 
-**Connection**
-- Works with Tailscale and custom domains
-- Self-signed certificates supported
-- Report a problem right from the app
+## Como o IPA é gerado
 
-More features will be implemented in the future.
+Não é necessário ter macOS: o build roda em um runner `macos-15` do GitHub Actions.
 
-### How to use
+- Workflow: [`.github/workflows/build-ipa.yml`](.github/workflows/build-ipa.yml)
+- Disparar manualmente: `gh workflow run "Build unsigned IPA (iOS 16)" --repo op3ny/swing-ipa`
+- Ou simplesmente dar push em `main`
+- O artefato fica disponível por 30 dias; as releases recebem o IPA final
 
-Install the app via [TestFlight](https://testflight.apple.com/join/68bWKBss). When you launch the app, enter your server address, username and password to log in.
+### Checando antes de subir
 
-### Thanks to
+Mesmo em Linux dá para validar a maior parte das alterações em segundos:
 
-- [MeloX](https://github.com/youshen2/MeloX)
-- [Apple Music-like Lyrics (AMLL)](https://github.com/Steve-xmh/applemusic-like-lyrics)
-- [Spicy Lyrics](https://github.com/Spikerko/spicy-lyrics)
-- [LDDC](https://github.com/chenmozhijin/LDDC)
-- [LNPopupUI](https://github.com/LeoNatan/LNPopupUI)
-- [LRCLIB](https://lrclib.net)
-- [MusicBrainz](https://musicbrainz.org) & [Wikipedia](https://www.wikipedia.org)
+```sh
+bash scripts/check_swift_syntax.sh   # swiftc -parse em todos os .swift
+python3 scripts/check_ios16_apis.py  # aponta APIs de iOS 17+ que não compilam no alvo 16
+```
 
-### License
+Esses scripts pegam erros de sintaxe e APIs incompatíveis. Erros de tipo/disponibilidade do SDK da Apple só aparecem no build macOS, por isso o CI ainda é a etapa final.
 
-This software is provided to you with terms stated in the AGPLv3 License. Read the full text in the `LICENSE` file located at the root of this repository.
+## Funcionalidades do cliente original
+
+**Reprodução:** streaming com qualidade selecionável (até lossless), fila com shuffle/repeat/autoplay, crossfade, timer de sono, equalizador, AirPlay, downloads offline e histórico sincronizado.
+
+**Letras:** sincronização palavra por palavra, busca automática de letras, fallback linha a linha e créditos de composição.
+
+**Biblioteca:** álbuns, artistas, playlists, pastas, favoritos, mixes, busca, selos de conteúdo explícito, biografias e estatísticas.
+
+**iPhone/iPad:** layout para iPad com player landscape, widgets, Live Activity, controles na tela de bloqueio, ações de swipe e temas claro/escuro.
+
+**Conexão:** Tailscale, domínios customizados, certificados autoassinados e relatório de problemas pelo app.
+
+## Créditos
+
+Baseado em [swingmx/ios](https://github.com/swingmx/ios), mantido pela comunidade Swing Music.
+
+Agradecimentos do projeto original: [MeloX](https://github.com/youshen2/MeloX), [Apple Music-like Lyrics](https://github.com/Steve-xmh/applemusic-like-lyrics), [Spicy Lyrics](https://github.com/Spikerko/spicy-lyrics), [LDDC](https://github.com/chenmozhijin/LDDC), [LNPopupUI](https://github.com/LeoNatan/LNPopupUI), [LRCLIB](https://lrclib.net), [MusicBrainz](https://musicbrainz.org) e [Wikipedia](https://www.wikipedia.org).
+
+## Licença
+
+Este projeto deriva de software licenciado sob **AGPL-3.0**. O texto completo está em [`LICENSE`](LICENSE). O uso do IPA é por conta própria; ele é distribuído sem assinatura da Apple e destina-se a dispositivos jailbroken.
