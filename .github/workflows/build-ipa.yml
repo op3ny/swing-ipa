@@ -48,12 +48,13 @@ jobs:
       - name: Package IPA
         run: |
           set -e
-          APP="$RUNNER_TEMP/SwingMusic.xcarchive/Products/Applications/SwingMusic.app"
-          if [ ! -d "$APP" ]; then
-            echo "::error::App bundle not found at $APP"
-            find "$RUNNER_TEMP/SwingMusic.xcarchive" -maxdepth 5 -type d || true
+          APP="$(find "$RUNNER_TEMP/SwingMusic.xcarchive/Products/Applications" -maxdepth 1 -type d -name '*.app' -print -quit)"
+          if [ -z "$APP" ]; then
+            echo "::error::No .app bundle found in archive"
+            find "$RUNNER_TEMP/SwingMusic.xcarchive" -maxdepth 6 -type d -name '*.app' || true
             exit 1
           fi
+          echo "Packaging: $APP"
           rm -rf "$RUNNER_TEMP/payload"
           mkdir -p "$RUNNER_TEMP/payload/Payload"
           cp -R "$APP" "$RUNNER_TEMP/payload/Payload/"
